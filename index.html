@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickPDF - Developed by Ali Murad</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 15px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    h1 {
+      color: #0d6efd;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      color: #6c757d;
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+
+    .developer-credit {
+      background-color: #e7f1ff;
+      color: #0c63e4;
+      border: 1px solid #b6d4fe;
+      padding: 8px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    .card {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      color: #212529;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .main-btn {
+      background-color: #198754;
+      color: white;
+    }
+
+    .tool-btn {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    .file-info {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: #e9ecef;
+      border-radius: 6px;
+      font-size: 13px;
+      color: #495057;
+      word-break: break-all;
+    }
+
+    .footer {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>QuickPDF 📄</h1>
+    <p class="subtitle">Fast & Easy Solution for All Your PDF Needs</p>
+
+    <!-- Developer Credit -->
+    <div class="developer-credit">
+      Created with ❤️ by <strong>Ali Murad</strong>
+    </div>
+
+    <div class="card">
+      <h3>Select PDF File</h3>
+      <p>Choose any PDF file from your device storage:</p>
+      
+      <input type="file" id="pdfFileInput" accept=".pdf" style="display: none;">
+      <button class="btn main-btn" onclick="openStorage()">Open File Manager</button>
+      
+      <div id="fileDetails" class="file-info">No file selected</div>
+    </div>
+
+    <div class="card">
+      <h3>PDF Tools</h3>
+      <button class="btn tool-btn" onclick="processPDF('Compress PDF')">1. Compress PDF Size</button>
+      <button class="btn tool-btn" onclick="processPDF('Convert PDF to Word')">2. Convert PDF to Word</button>
+      <button class="btn tool-btn" onclick="processPDF('Lock PDF')">3. Protect PDF with Password</button>
+    </div>
+
+    <footer class="footer">
+      Designed & Developed by <strong>Ali Murad</strong>
+    </footer>
+  </div>
+
+  <script>
+    function openStorage() {
+      document.getElementById('pdfFileInput').click();
+    }
+
+    document.getElementById('pdfFileInput').addEventListener('change', function() {
+      const fileInput = this;
+      const fileDetails = document.getElementById('fileDetails');
+
+      if (fileInput.files.length > 0) {
+        const fileName = fileInput.files[0].name;
+        const fileSize = (fileInput.files[0].size / 1024).toFixed(2);
+        fileDetails.innerHTML = "<b>Selected File:</b> " + fileName + " (" + fileSize + " KB)";
+        fileDetails.style.backgroundColor = "#d1e7dd";
+        fileDetails.style.color = "#0f5132";
+      } else {
+        fileDetails.innerHTML = "No file selected";
+        fileDetails.style.backgroundColor = "#e9ecef";
+        fileDetails.style.color = "#495057";
+      }
+    });
+
+    function processPDF(action) {
+      const fileInput = document.getElementById('pdfFileInput');
+      
+      if (fileInput.files.length === 0) {
+        alert("Please click 'Open File Manager' and select a PDF file first!");
+      } else {
+        const fileName = fileInput.files[0].name;
+        alert("QuickPDF Tool by Ali Murad: Starting process '" + action + "' for file: " + fileName);
+      }
+    }
+  </script>
+
+</body>
+</html
