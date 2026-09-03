@@ -3,140 +3,111 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickPDF - Fast & Free PDF Tool</title>
+    <title>QuickPDF - All-in-One Free PDF Utility</title>
+    <!-- Core PDF Processing Engine -->
     <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 500px;
-            width: 100%;
-            text-align: center;
-        }
-        h1 { color: #0066cc; margin-bottom: 5px; }
-        p { color: #666; font-size: 14px; margin-bottom: 25px; }
-        .upload-box {
-            border: 2px dashed #0066cc;
-            padding: 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            background: #f8faff;
-            margin-bottom: 20px;
-        }
-        .upload-box input { display: none; }
-        .file-info {
-            background: #eef5ff;
-            padding: 12px;
-            border-radius: 6px;
-            text-align: left;
-            margin-bottom: 20px;
-            font-size: 13px;
-        }
-        .btn-group { display: flex; gap: 10px; }
-        button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 15px;
-            font-weight: bold;
-            cursor: pointer;
-            background-color: #0066cc;
-            color: white;
-        }
-        button:hover { background-color: #0052a3; }
-        footer { margin-top: 30px; font-size: 12px; color: #888; }
+        * { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #f4f7f6; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { background: #ffffff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); max-width: 550px; width: 100%; text-align: center; }
+        h1 { color: #1a73e8; margin-bottom: 5px; font-size: 28px; }
+        p.subtitle { color: #5f6368; font-size: 14px; margin-bottom: 25px; }
+        .upload-area { border: 2px dashed #1a73e8; background: #f8faff; padding: 30px; border-radius: 8px; cursor: pointer; transition: 0.2s; margin-bottom: 20px; }
+        .upload-area:hover { background: #eef5ff; }
+        .upload-area input { display: none; }
+        .file-status { background: #e8f0fe; color: #1967d2; padding: 12px; border-radius: 6px; font-size: 13px; text-align: left; margin-bottom: 20px; display: none; }
+        .btn-action { background-color: #1a73e8; color: white; border: none; width: 100%; padding: 14px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+        .btn-action:hover { background-color: #1557b0; }
+        .btn-action:disabled { background-color: #ccc; cursor: not-allowed; }
+        footer { margin-top: auto; padding-top: 20px; font-size: 12px; color: #70757a; text-align: center; }
+        footer a { color: #1a73e8; text-decoration: none; margin: 0 5px; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>QuickPDF</h1>
-    <p>Fast, Secure & Free Online PDF Tool</p>
+    <h1>QuickPDF Pro</h1>
+    <p class="subtitle">Convert Images to PDF & Merge PDF Files Instantly</p>
 
-    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
-        <span>Click to Select or Open File</span>
-        <input type="file" id="fileInput" accept="image/*,application/pdf">
+    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+        <strong>Click to Select Files</strong>
+        <p style="margin: 5px 0 0 0; font-size: 12px; color: #888;">Select single/multiple Images (JPG, PNG) or PDFs</p>
+        <input type="file" id="fileInput" multiple accept="image/*,application/pdf">
     </div>
 
-    <div id="fileDetails" class="file-info" style="display: none;"></div>
+    <div id="fileStatus" class="file-status"></div>
 
-    <div class="btn-group">
-        <button id="processBtn">Process & Download</button>
-    </div>
+    <button id="processBtn" class="btn-action" disabled>Process & Download File</button>
 </div>
 
 <footer>
-    © 2026 QuickPDF - Created by Ali Murad
+    © 2026 QuickPDF Pro - Built for Fast File Processing<br>
+    <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Us</a>
 </footer>
 
 <script>
 const fileInput = document.getElementById('fileInput');
-const fileDetails = document.getElementById('fileDetails');
+const fileStatus = document.getElementById('fileStatus');
 const processBtn = document.getElementById('processBtn');
+let selectedFiles = [];
 
 fileInput.addEventListener('change', (e) => {
-    const file = e.target.files[0];
-    if (file) {
-        fileDetails.style.display = 'block';
-        fileDetails.innerHTML = `
-            <strong>Selected File:</strong> ${file.name}<br>
-            <strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB<br>
-            <strong>Status:</strong> Ready for Processing
-        `;
+    selectedFiles = Array.from(e.target.files);
+    if (selectedFiles.length > 0) {
+        fileStatus.style.display = 'block';
+        fileStatus.innerHTML = `<strong>Selected:</strong> ${selectedFiles.length} file(s)<br>
+        <span style="font-size:11px; color:#555;">${selectedFiles.map(f => f.name).join(', ')}</span>`;
+        processBtn.disabled = false;
+    } else {
+        fileStatus.style.display = 'none';
+        processBtn.disabled = true;
     }
 });
 
 processBtn.addEventListener('click', async () => {
-    if (!fileInput.files.length) {
-        alert('Pehle koi Image ya PDF select karein!');
-        return;
-    }
-
-    const file = fileInput.files[0];
-    processBtn.innerText = 'Processing...';
+    if (!selectedFiles.length) return;
+    
+    processBtn.innerText = 'Processing File(s)...';
+    processBtn.disabled = true;
 
     try {
-        const pdfDoc = await PDFLib.PDFDocument.create();
+        const mergedPdf = await PDFLib.PDFDocument.create();
 
-        if (file.type.startsWith('image/')) {
-            const imageBytes = await file.arrayBuffer();
-            let image;
-            if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
-                image = await pdfDoc.embedJpg(imageBytes);
-            } else if (file.type === 'image/png') {
-                image = await pdfDoc.embedPng(imageBytes);
-            }
-
-            if (image) {
-                const page = pdfDoc.addPage([image.width, image.height]);
-                page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+        for (const file of selectedFiles) {
+            if (file.type.startsWith('image/')) {
+                const imageBytes = await file.arrayBuffer();
+                let image;
+                if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+                    image = await mergedPdf.embedJpg(imageBytes);
+                } else if (file.type === 'image/png') {
+                    image = await mergedPdf.embedPng(imageBytes);
+                }
+                
+                if (image) {
+                    const page = mergedPdf.addPage([image.width, image.height]);
+                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+                }
+            } else if (file.type === 'application/pdf') {
+                const pdfBytes = await file.arrayBuffer();
+                const srcPdf = await PDFLib.PDFDocument.load(pdfBytes);
+                const copiedPages = await mergedPdf.copyPages(srcPdf, srcPdf.getPageIndices());
+                copiedPages.forEach((page) => mergedPdf.addPage(page));
             }
         }
 
-        const pdfBytes = await pdfDoc.save();
-        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const finalPdfBytes = await mergedPdf.save();
+        const blob = new Blob([finalPdfBytes], { type: 'application/pdf' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.download = 'QuickPDF_Converted.pdf';
+        link.download = `QuickPDF_Document_${Date.now()}.pdf`;
         link.click();
-        
-        processBtn.innerText = 'Process & Download';
+
+        processBtn.innerText = 'Process & Download File';
+        processBtn.disabled = false;
     } catch (err) {
-        alert('Error processing file!');
-        processBtn.innerText = 'Process & Download';
+        alert('File process karte waqt masla aya. Meharbani karke valid image ya PDF select karein.');
+        processBtn.innerText = 'Process & Download File';
+        processBtn.disabled = false;
     }
 });
 </script>
