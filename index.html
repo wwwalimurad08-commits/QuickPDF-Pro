@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
-   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291849846472319"
-     crossorigin="anonymous"></script> <meta charset="UTF-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickPDF - Developed by Ali Murad</title>
+    <title>QuickPDF - Fast & Free PDF Tool</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,126 +17,129 @@
             min-height: 100vh;
         }
         .container {
-            background-color: #ffffff;
+            background: white;
             padding: 30px;
             border-radius: 12px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 600px;
+            max-width: 500px;
             width: 100%;
             text-align: center;
-            margin-bottom: auto;
         }
-        h1 {
-            color: #1a73e8;
-            margin-bottom: 10px;
-        }
-        p.subtitle {
-            color: #5f6368;
-            margin-bottom: 25px;
-        }
+        h1 { color: #0066cc; margin-bottom: 5px; }
+        p { color: #666; font-size: 14px; margin-bottom: 25px; }
         .upload-box {
-            border: 2px dashed #1a73e8;
+            border: 2px dashed #0066cc;
             padding: 25px;
             border-radius: 8px;
-            background-color: #f8f9fa;
             cursor: pointer;
+            background: #f8faff;
             margin-bottom: 20px;
         }
-        .btn {
-            background-color: #1a73e8;
-            color: white;
-            padding: 12px 24px;
+        .upload-box input { display: none; }
+        .file-info {
+            background: #eef5ff;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: left;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+        .btn-group { display: flex; gap: 10px; }
+        button {
+            flex: 1;
+            padding: 12px;
             border: none;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 15px;
+            font-weight: bold;
             cursor: pointer;
-            margin: 5px;
-            transition: background-color 0.2s;
+            background-color: #0066cc;
+            color: white;
         }
-        .btn:hover {
-            background-color: #1557b0;
-        }
-        #file-details {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 6px;
-            background-color: #e8f0fe;
-            display: none;
-            text-align: left;
-        }
-        footer {
-            text-align: center;
-            padding: 20px;
-            margin-top: 40px;
-            border-top: 1px solid #ccc;
-            font-family: sans-serif;
-            width: 100%;
-            max-width: 600px;
-        }
-        footer a {
-            color: #1a73e8;
-            text-decoration: none;
-        }
+        button:hover { background-color: #0052a3; }
+        footer { margin-top: 30px; font-size: 12px; color: #888; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>QuickPDF</h1>
-        <p class="subtitle">Fast, Secure & Free Online PDF Tool</p>
+<div class="container">
+    <h1>QuickPDF</h1>
+    <p>Fast, Secure & Free Online PDF Tool</p>
 
-        <div class="upload-box" onclick="document.getElementById('pdf-input').click()">
-            <p style="margin: 0; color: #5f6368;">Click to Select or Open PDF File</p>
-            <input type="file" id="pdf-input" accept="application/pdf" style="display: none;">
-        </div>
-
-        <div id="file-details"></div>
-
-        <div style="margin-top: 20px;">
-            <button class="btn" onclick="processPDF('view')">View Details</button>
-            <button class="btn" onclick="processPDF('download')">Process File</button>
-        </div>
+    <div class="upload-box" onclick="document.getElementById('fileInput').click()">
+        <span>Click to Select or Open File</span>
+        <input type="file" id="fileInput" accept="image/*,application/pdf">
     </div>
 
-    <!-- Footer Section for AdSense Compliance -->
-    <footer>
-        <p>&copy; 2026 QuickPDF - Created by Ali Murad</p>
-        <p>
-            <a href="#privacy" onclick="alert('Privacy Policy: We do not store or share your uploaded files. All PDF processing happens locally in your browser.')">Privacy Policy</a> | 
-            <a href="#terms" onclick="alert('Terms of Service: QuickPDF is provided as-is for personal and commercial file management.')">Terms of Service</a> | 
-            <a href="mailto:support@quickpdf.com">Contact Us</a>
-        </p>
-    </footer>
+    <div id="fileDetails" class="file-info" style="display: none;"></div>
 
-    <script>
-        const fileInput = document.getElementById('pdf-input');
-        const fileDetails = document.getElementById('file-details');
+    <div class="btn-group">
+        <button id="processBtn">Process & Download</button>
+    </div>
+</div>
 
-        fileInput.addEventListener('change', function(e) {
-            const file = e.target.files[0];
-            if (file) {
-                fileDetails.style.display = 'block';
-                fileDetails.innerHTML = `
-                    <strong>Selected File:</strong> ${file.name}<br>
-                    <strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB<br>
-                    <strong>Status:</strong> Ready for Processing (100% Local & Private)
-                `;
+<footer>
+    © 2026 QuickPDF - Created by Ali Murad
+</footer>
+
+<script>
+const fileInput = document.getElementById('fileInput');
+const fileDetails = document.getElementById('fileDetails');
+const processBtn = document.getElementById('processBtn');
+
+fileInput.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        fileDetails.style.display = 'block';
+        fileDetails.innerHTML = `
+            <strong>Selected File:</strong> ${file.name}<br>
+            <strong>Size:</strong> ${(file.size / (1024 * 1024)).toFixed(2)} MB<br>
+            <strong>Status:</strong> Ready for Processing
+        `;
+    }
+});
+
+processBtn.addEventListener('click', async () => {
+    if (!fileInput.files.length) {
+        alert('Pehle koi Image ya PDF select karein!');
+        return;
+    }
+
+    const file = fileInput.files[0];
+    processBtn.innerText = 'Processing...';
+
+    try {
+        const pdfDoc = await PDFLib.PDFDocument.create();
+
+        if (file.type.startsWith('image/')) {
+            const imageBytes = await file.arrayBuffer();
+            let image;
+            if (file.type === 'image/jpeg' || file.type === 'image/jpg') {
+                image = await pdfDoc.embedJpg(imageBytes);
+            } else if (file.type === 'image/png') {
+                image = await pdfDoc.embedPng(imageBytes);
             }
-        });
 
-        function processPDF(action) {
-            if (!fileInput.files.length) {
-                alert("Please select a PDF file first!");
-                return;
-            }
-            const fileName = fileInput.files[0].name;
-            if (action === 'view') {
-                alert(`QuickPDF: Processing "${fileName}" locally inside your browser.`);
-            } else {
-                alert(`QuickPDF: "${fileName}" processed successfully!`);
+            if (image) {
+                const page = pdfDoc.addPage([image.width, image.height]);
+                page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
             }
         }
-    </script>
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'QuickPDF_Converted.pdf';
+        link.click();
+        
+        processBtn.innerText = 'Process & Download';
+    } catch (err) {
+        alert('Error processing file!');
+        processBtn.innerText = 'Process & Download';
+    }
+});
+</script>
 
 </body>
 </html>
