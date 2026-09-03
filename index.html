@@ -83,6 +83,46 @@
             font-size: 13px;
             color: #70757a;
         }
+
+        footer a {
+            color: var(--primary);
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        /* Modal Popup Style */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 500px;
+            max-height: 80vh;
+            overflow-y: auto;
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .close-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -102,7 +142,20 @@
 
     <button id="processBtn" class="btn" disabled onclick="processFiles()">Process & Download File</button>
 
-    <footer>Developed by Ali Murad</footer>
+    <footer>
+        Developed by Ali Murad <br><br>
+        <a href="javascript:void(0)" onclick="openModal('privacy')">Privacy Policy</a> | 
+        <a href="javascript:void(0)" onclick="openModal('terms')">Terms</a> | 
+        <a href="javascript:void(0)" onclick="openModal('contact')">Contact Us</a>
+    </footer>
+</div>
+
+<!-- Policy Popups -->
+<div id="infoModal" class="modal">
+    <div class="modal-content">
+        <button class="close-btn" onclick="closeModal()">Close</button>
+        <div id="modalBody"></div>
+    </div>
 </div>
 
 <script>
@@ -164,6 +217,22 @@
             processBtn.disabled = false;
             processBtn.innerText = "Process & Download File";
         }
+    }
+
+    function openModal(type) {
+        const body = document.getElementById('modalBody');
+        if (type === 'privacy') {
+            body.innerHTML = "<h3>Privacy Policy</h3><p>QuickPDF Pro respects user privacy. All file processing is performed directly in your browser. No files are uploaded, stored, or saved on any remote server.</p>";
+        } else if (type === 'terms') {
+            body.innerHTML = "<h3>Terms of Service</h3><p>QuickPDF Pro is a free web utility provided as-is. Users are responsible for the content of the files they convert or merge.</p>";
+        } else if (type === 'contact') {
+            body.innerHTML = "<h3>Contact Us</h3><p>For support or inquiries regarding QuickPDF Pro, please contact the developer at: <strong>wwwalimurad08@gmail.com</strong></p>";
+        }
+        document.getElementById('infoModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('infoModal').style.display = 'none';
     }
 </script>
 
