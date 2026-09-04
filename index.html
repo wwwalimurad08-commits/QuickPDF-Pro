@@ -1,285 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickPDF Pro - Free Online PDF Converter & Merger</title>
-    
-    <!-- Google Search Console Verification -->
-    <meta name="google-site-verification" content="McDGh0Q4MaDLcNnXslV5uX5oZFFokrBN2Cuf0v-7hAE" />
-    
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291849846472319" crossorigin="anonymous"></script>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- PDF Libs -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickPDF Pro - All-in-One PDF Utility Tools</title>
+  
+  <!-- Google Search Console Verification Tag -->
+  <meta name="google-site-verification" content="Your-Search-Console-Meta-Tag-Here" />
 
-    <style>
-        .drop-zone {
-            border: 2px dashed #cbd5e1;
-            transition: all 0.3s ease;
-        }
-        .drop-zone:hover, .drop-zone.dragover {
-            border-color: #3b82f6;
-            background-color: #eff6ff;
-        }
-    </style>
+  <!-- Google AdSense Code -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291849846472319" crossorigin="anonymous"></script>
+
+  <!-- Tailwind CSS & PDF Libraries -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    tailwind.config = { darkMode: 'class' };
+  </script>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-200">
 
-    <!-- Header / Navbar -->
-    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex items-center space-x-3">
-                <div class="bg-blue-600 text-white p-2 rounded-lg">
-                    <i class="fa-solid fa-file-pdf text-xl"></i>
-                </div>
-                <span class="font-bold text-xl tracking-tight text-slate-900">QuickPDF <span class="text-blue-600">Pro</span></span>
-            </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
-                <a href="#tools" class="hover:text-blue-600 transition">Tools</a>
-                <a href="#about" class="hover:text-blue-600 transition">About</a>
-                <a href="#privacy" class="hover:text-blue-600 transition">Privacy Policy</a>
-            </nav>
-        </div>
+  <!-- Navigation Bar -->
+  <nav class="bg-white dark:bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
+    <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">QuickPDF Pro</h1>
+    <button id="themeToggle" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-sm font-semibold">
+      🌙 Dark Mode
+    </button>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="max-w-4xl mx-auto p-6">
+    <header class="text-center my-6">
+      <h2 class="text-3xl font-extrabold mb-2">All-in-One Online PDF Tool</h2>
+      <p class="text-gray-600 dark:text-gray-400">Merge, Compress, Convert, Protect & Watermark PDFs instantly.</p>
     </header>
 
-    <!-- Hero Section -->
-    <section class="py-12 bg-gradient-to-b from-blue-50 to-slate-50 text-center px-4">
-        <div class="max-w-3xl mx-auto">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Fast, Free & Secure PDF Tools</h1>
-            <p class="text-lg text-slate-600 mb-8">Convert images to PDF, merge multiple PDF files, or compress documents easily right in your browser without uploading files to any server.</p>
-        </div>
-    </section>
+    <!-- Top Ad Placement -->
+    <div class="my-4 text-center">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6291849846472319" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
 
-    <!-- Main Workspace / Tools Section -->
-    <main id="tools" class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
-        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
-            
-            <!-- Tool Tabs -->
-            <div class="flex border-b border-slate-200 bg-slate-100/50 p-2 space-x-2">
-                <button id="tab-img2pdf" onclick="switchTool('img2pdf')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm">
-                    <i class="fa-solid fa-file-image"></i>
-                    <span>JPG/PNG to PDF</span>
-                </button>
-                <button id="tab-merge" onclick="switchTool('merge')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50">
-                    <i class="fa-solid fa-object-group"></i>
-                    <span>Merge PDFs</span>
-                </button>
-            </div>
+    <!-- Features Dashboard Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      
+      <!-- 1. Merge PDFs -->
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-xl font-bold mb-2 text-indigo-500">📎 Merge PDFs</h3>
+        <input type="file" id="mergeInput" multiple accept="application/pdf" class="block w-full text-sm text-gray-500 mb-4">
+        <button onclick="processMerge()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Merge Files</button>
+      </div>
 
-            <!-- Tool Content Area -->
-            <div class="p-6 md:p-8">
-                
-                <!-- File Upload Box -->
-                <div id="drop-zone" class="drop-zone rounded-2xl p-8 text-center cursor-pointer mb-6 bg-slate-50/50">
-                    <input type="file" id="file-input" class="hidden" multiple accept="image/*,.pdf">
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-800 mb-1">Choose Files or Drag & Drop</h3>
-                    <p class="text-sm text-slate-500 mb-4" id="upload-hint">Upload JPG, PNG images to convert to PDF</p>
-                    <button onclick="document.getElementById('file-input').click()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition shadow-md hover:shadow-lg text-sm">
-                        Select Files
-                    </button>
-                </div>
+      <!-- 2. Images to PDF -->
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-xl font-bold mb-2 text-indigo-500">🖼️ Image to PDF</h3>
+        <input type="file" id="imgInput" multiple accept="image/*" class="block w-full text-sm text-gray-500 mb-4">
+        <button onclick="processImgToPdf()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Convert to PDF</button>
+      </div>
 
-                <!-- Selected Files List -->
-                <div id="file-list" class="space-y-3 mb-6"></div>
+      <!-- 3. Add Watermark -->
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-xl font-bold mb-2 text-indigo-500">✍️ Add Watermark</h3>
+        <input type="file" id="watermarkPdfInput" accept="application/pdf" class="block w-full text-sm text-gray-500 mb-2">
+        <input type="text" id="watermarkText" placeholder="Enter Watermark Text" class="w-full p-2 mb-4 rounded border dark:bg-gray-700">
+        <button onclick="processWatermark()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Apply Watermark</button>
+      </div>
 
-                <!-- Action Button -->
-                <div class="text-center">
-                    <button id="process-btn" onclick="processFiles()" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed hidden">
-                        <i class="fa-solid fa-gear mr-2"></i> Convert to PDF
-                    </button>
-                </div>
+      <!-- 4. Protect PDF (Password) -->
+      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
+        <h3 class="text-xl font-bold mb-2 text-indigo-500">🔒 Password Protect</h3>
+        <input type="file" id="protectPdfInput" accept="application/pdf" class="block w-full text-sm text-gray-500 mb-2">
+        <input type="password" id="pdfPassword" placeholder="Set Password" class="w-full p-2 mb-4 rounded border dark:bg-gray-700">
+        <button onclick="processProtect()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Encrypt PDF</button>
+      </div>
 
-            </div>
-        </div>
+    </div>
 
-        <!-- AdSense Ad Space Placeholder -->
-        <div class="my-8 text-center">
-            <ins class="adsbygoogle"
-                 style="display:block"
-                 data-ad-client="ca-pub-6291849846472319"
-                 data-ad-slot="auto"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-    </main>
+    <!-- Bottom Ad Placement -->
+    <div class="my-8 text-center">
+      <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6291849846472319" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
+      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    </div>
+  </div>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <p class="text-sm mb-4">&copy; 2026 QuickPDF Pro. All rights reserved. Client-side fast processing.</p>
-            <div class="flex justify-center space-x-6 text-xs">
-                <a href="#privacy" class="hover:text-white transition">Privacy Policy</a>
-                <a href="#terms" class="hover:text-white transition">Terms of Service</a>
-                <a href="#contact" class="hover:text-white transition">Contact Us</a>
-            </div>
-        </div>
-    </footer>
+  <script>
+    // Theme Toggle Script
+    const toggleBtn = document.getElementById('themeToggle');
+    toggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+    });
 
-    <!-- JavaScript logic -->
-    <script>
-        let currentTool = 'img2pdf';
-        let selectedFiles = [];
+    // Helper: Download Blob
+    function downloadBlob(blob, fileName) {
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+      link.click();
+    }
 
-        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
+    // Merge Logic
+    async function processMerge() {
+      const files = document.getElementById('mergeInput').files;
+      if (!files.length) return alert('Select files first!');
+      const mergedPdf = await PDFLib.PDFDocument.create();
+      for (let file of files) {
+        const bytes = await file.arrayBuffer();
+        const pdf = await PDFLib.PDFDocument.load(bytes);
+        const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+        copiedPages.forEach((page) => mergedPdf.addPage(page));
+      }
+      const pdfBytes = await mergedPdf.save();
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'merged-quickpdf.pdf');
+    }
 
-        function switchTool(tool) {
-            currentTool = tool;
-            selectedFiles = [];
-            renderFiles();
-            
-            const tabImg = document.getElementById('tab-img2pdf');
-            const tabMerge = document.getElementById('tab-merge');
-            const uploadHint = document.getElementById('upload-hint');
-            const fileInput = document.getElementById('file-input');
-            const processBtn = document.getElementById('process-btn');
+    // Image to PDF Logic
+    async function processImgToPdf() {
+      const files = document.getElementById('imgInput').files;
+      if (!files.length) return alert('Select images first!');
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      for (let file of files) {
+        const bytes = await file.arrayBuffer();
+        let image = file.type.includes('png') ? await pdfDoc.embedPng(bytes) : await pdfDoc.embedJpg(bytes);
+        const page = pdfDoc.addPage([image.width, image.height]);
+        page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
+      }
+      const pdfBytes = await pdfDoc.save();
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'images-quickpdf.pdf');
+    }
 
-            if (tool === 'img2pdf') {
-                tabImg.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm";
-                tabMerge.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
-                uploadHint.innerText = "Upload JPG, PNG images to convert to PDF";
-                fileInput.accept = "image/*";
-                processBtn.innerHTML = '<i class="fa-solid fa-gear mr-2"></i> Convert to PDF';
-            } else {
-                tabMerge.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm";
-                tabImg.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
-                uploadHint.innerText = "Upload 2 or more PDF files to merge together";
-                fileInput.accept = ".pdf";
-                processBtn.innerHTML = '<i class="fa-solid fa-object-group mr-2"></i> Merge PDFs';
-            }
-        }
+    // Watermark Logic
+    async function processWatermark() {
+      const file = document.getElementById('watermarkPdfInput').files[0];
+      const text = document.getElementById('watermarkText').value;
+      if (!file || !text) return alert('Provide file and text!');
+      const bytes = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+      const pages = pdfDoc.getPages();
+      pages.forEach(page => {
+        page.drawText(text, { x: 50, y: page.getHeight() / 2, size: 40, opacity: 0.3 });
+      });
+      const pdfBytes = await pdfDoc.save();
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'watermarked-quickpdf.pdf');
+    }
 
-        const dropZone = document.getElementById('drop-zone');
-        const fileInput = document.getElementById('file-input');
-
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, preventDefaults, false);
-        });
-
-        function preventDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-
-        ['dragenter', 'dragover'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-        });
-
-        ['dragleave', 'drop'].forEach(eventName => {
-            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            const dt = e.dataTransfer;
-            const files = dt.files;
-            handleFiles(files);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            handleFiles(e.target.files);
-        });
-
-        function handleFiles(files) {
-            for (let i = 0; i < files.length; i++) {
-                selectedFiles.push(files[i]);
-            }
-            renderFiles();
-        }
-
-        function renderFiles() {
-            const fileList = document.getElementById('file-list');
-            const processBtn = document.getElementById('process-btn');
-            fileList.innerHTML = '';
-
-            if (selectedFiles.length === 0) {
-                processBtn.classList.add('hidden');
-                return;
-            }
-
-            processBtn.classList.remove('hidden');
-
-            selectedFiles.forEach((file, index) => {
-                const item = document.createElement('div');
-                item.className = "flex items-center justify-between p-3 bg-slate-100 rounded-xl text-sm";
-                item.innerHTML = `
-                    <div class="flex items-center space-x-3 overflow-hidden">
-                        <i class="fa-solid fa-file text-blue-600 text-lg"></i>
-                        <span class="truncate font-medium text-slate-700">${file.name}</span>
-                        <span class="text-xs text-slate-400">(${ (file.size / 1024 / 1024).toFixed(2) } MB)</span>
-                    </div>
-                    <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-700 p-1">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                `;
-                fileList.appendChild(item);
-            });
-        }
-
-        function removeFile(index) {
-            selectedFiles.splice(index, 1);
-            renderFiles();
-        }
-
-        async function processFiles() {
-            if (selectedFiles.length === 0) return;
-
-            if (currentTool === 'img2pdf') {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-
-                for (let i = 0; i < selectedFiles.length; i++) {
-                    const file = selectedFiles[i];
-                    const imageData = await readFileAsDataURL(file);
-                    
-                    if (i > 0) doc.addPage();
-                    
-                    const imgProps = doc.getImageProperties(imageData);
-                    const pdfWidth = doc.internal.pageSize.getWidth();
-                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-                    
-                    doc.addImage(imageData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
-                }
-                doc.save('converted-quickpdf.pdf');
-
-            } else if (currentTool === 'merge') {
-                const mergedPdf = await PDFLib.PDFDocument.create();
-
-                for (const file of selectedFiles) {
-                    const arrayBuffer = await file.arrayBuffer();
-                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
-                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-                    copiedPages.forEach((page) => mergedPdf.addPage(page));
-                }
-
-                const pdfBytes = await mergedPdf.save();
-                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-                const link = document.createElement('a');
-                link.href = URL.createObjectURL(blob);
-                link.download = 'merged-quickpdf.pdf';
-                link.click();
-            }
-        }
-
-        function readFileAsDataURL(file) {
-            return new Promise((resolve) => {
-                const reader = new FileReader();
-                reader.onload = (e) => resolve(e.target.result);
-                reader.readAsDataURL(file);
-            });
-        }
-    </script>
+    // Protect Logic
+    async function processProtect() {
+      const file = document.getElementById('protectPdfInput').files[0];
+      const password = document.getElementById('pdfPassword').value;
+      if (!file || !password) return alert('Provide file and password!');
+      const bytes = await file.arrayBuffer();
+      const pdfDoc = await PDFLib.PDFDocument.load(bytes);
+      const pdfBytes = await pdfDoc.save({ userPassword: password, ownerPassword: password });
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'protected-quickpdf.pdf');
+    }
+  </script>
 </body>
 </html>
