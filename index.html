@@ -3,238 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickPDF Pro - Developed by Ali Murad</title>
-
-    <!-- Google AdSense Code -->
+    <title>QuickPDF Pro - Free Online PDF Converter & Merger</title>
+    
+    <!-- Google Search Console Verification -->
+    <meta name="google-site-verification" content="McDGh0Q4MaDLcNnXslV5uX5oZFFokrBN2Cuf0v-7hAE" />
+    
+    <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291849846472319" crossorigin="anonymous"></script>
-
-    <!-- Core PDF Processing Engine -->
-    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- PDF Libs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        :root {
-            --primary: #1a73e8;
-            --bg: #f8f9fa;
-            --surface: #ffffff;
-            --text: #202124;
+        .drop-zone {
+            border: 2px dashed #cbd5e1;
+            transition: all 0.3s ease;
         }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        .container {
-            background: var(--surface);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            max-width: 480px;
-            width: 100%;
-            text-align: center;
-        }
-
-        h1 { margin-top: 0; color: var(--primary); }
-        
-        .upload-area {
-            border: 2px dashed #dadce0;
-            border-radius: 8px;
-            padding: 30px;
-            margin: 20px 0;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-
-        .upload-area:hover { border-color: var(--primary); }
-        
-        input[type="file"] { display: none; }
-
-        .btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: bold;
-        }
-
-        .btn:disabled { background: #ccc; cursor: not-allowed; }
-
-        #file-list {
-            text-align: left;
-            margin: 15px 0;
-            font-size: 14px;
-            color: #5f6368;
-            word-break: break-all;
-        }
-
-        footer {
-            margin-top: 25px;
-            font-size: 13px;
-            color: #70757a;
-        }
-
-        footer a {
-            color: var(--primary);
-            text-decoration: none;
-            margin: 0 5px;
-        }
-
-        /* Modal Popup Style */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            box-sizing: border-box;
-            z-index: 1000;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            max-width: 500px;
-            max-height: 80vh;
-            overflow-y: auto;
-            text-align: left;
-            font-size: 14px;
-        }
-
-        .close-btn {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            float: right;
+        .drop-zone:hover, .drop-zone.dragover {
+            border-color: #3b82f6;
+            background-color: #eff6ff;
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
 
-<div class="container">
-    <h1>QuickPDF Pro</h1>
-    <p>Convert Images to PDF & Merge PDF Files Instantly</p>
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-sm border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <div class="bg-blue-600 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-file-pdf text-xl"></i>
+                </div>
+                <span class="font-bold text-xl tracking-tight text-slate-900">QuickPDF <span class="text-blue-600">Pro</span></span>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
+                <a href="#tools" class="hover:text-blue-600 transition">Tools</a>
+                <a href="#about" class="hover:text-blue-600 transition">About</a>
+                <a href="#privacy" class="hover:text-blue-600 transition">Privacy Policy</a>
+            </nav>
+        </div>
+    </header>
 
-    <div class="upload-area" onclick="document.getElementById('fileInput').click()">
-        <strong>Click to Select Files</strong>
-        <p style="margin:5px 0 0; font-size:12px; color:#70757a;">Select single/multiple Images (JPG, PNG) or PDFs</p>
-    </div>
+    <!-- Hero Section -->
+    <section class="py-12 bg-gradient-to-b from-blue-50 to-slate-50 text-center px-4">
+        <div class="max-w-3xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 mb-4 tracking-tight">Fast, Free & Secure PDF Tools</h1>
+            <p class="text-lg text-slate-600 mb-8">Convert images to PDF, merge multiple PDF files, or compress documents easily right in your browser without uploading files to any server.</p>
+        </div>
+    </section>
 
-    <input type="file" id="fileInput" multiple accept="image/jpeg, image/png, application/pdf">
-    
-    <div id="file-list"></div>
+    <!-- Main Workspace / Tools Section -->
+    <main id="tools" class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full">
+        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+            
+            <!-- Tool Tabs -->
+            <div class="flex border-b border-slate-200 bg-slate-100/50 p-2 space-x-2">
+                <button id="tab-img2pdf" onclick="switchTool('img2pdf')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm">
+                    <i class="fa-solid fa-file-image"></i>
+                    <span>JPG/PNG to PDF</span>
+                </button>
+                <button id="tab-merge" onclick="switchTool('merge')" class="flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50">
+                    <i class="fa-solid fa-object-group"></i>
+                    <span>Merge PDFs</span>
+                </button>
+            </div>
 
-    <button id="processBtn" class="btn" disabled onclick="processFiles()">Process & Download File</button>
+            <!-- Tool Content Area -->
+            <div class="p-6 md:p-8">
+                
+                <!-- File Upload Box -->
+                <div id="drop-zone" class="drop-zone rounded-2xl p-8 text-center cursor-pointer mb-6 bg-slate-50/50">
+                    <input type="file" id="file-input" class="hidden" multiple accept="image/*,.pdf">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-1">Choose Files or Drag & Drop</h3>
+                    <p class="text-sm text-slate-500 mb-4" id="upload-hint">Upload JPG, PNG images to convert to PDF</p>
+                    <button onclick="document.getElementById('file-input').click()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl transition shadow-md hover:shadow-lg text-sm">
+                        Select Files
+                    </button>
+                </div>
 
-    <footer>
-        Developed by Ali Murad <br><br>
-        <a href="javascript:void(0)" onclick="openModal('privacy')">Privacy Policy</a> | 
-        <a href="javascript:void(0)" onclick="openModal('terms')">Terms</a> | 
-        <a href="javascript:void(0)" onclick="openModal('contact')">Contact Us</a>
+                <!-- Selected Files List -->
+                <div id="file-list" class="space-y-3 mb-6"></div>
+
+                <!-- Action Button -->
+                <div class="text-center">
+                    <button id="process-btn" onclick="processFiles()" class="w-full md:w-auto bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3.5 rounded-xl transition shadow-lg hover:shadow-xl text-base disabled:opacity-50 disabled:cursor-not-allowed hidden">
+                        <i class="fa-solid fa-gear mr-2"></i> Convert to PDF
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- AdSense Ad Space Placeholder -->
+        <div class="my-8 text-center">
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-6291849846472319"
+                 data-ad-slot="auto"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-8 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-sm mb-4">&copy; 2026 QuickPDF Pro. All rights reserved. Client-side fast processing.</p>
+            <div class="flex justify-center space-x-6 text-xs">
+                <a href="#privacy" class="hover:text-white transition">Privacy Policy</a>
+                <a href="#terms" class="hover:text-white transition">Terms of Service</a>
+                <a href="#contact" class="hover:text-white transition">Contact Us</a>
+            </div>
+        </div>
     </footer>
-</div>
 
-<!-- Policy Popups -->
-<div id="infoModal" class="modal">
-    <div class="modal-content">
-        <button class="close-btn" onclick="closeModal()">Close</button>
-        <div id="modalBody"></div>
-    </div>
-</div>
+    <!-- JavaScript logic -->
+    <script>
+        let currentTool = 'img2pdf';
+        let selectedFiles = [];
 
-<script>
-    const fileInput = document.getElementById('fileInput');
-    const fileList = document.getElementById('file-list');
-    const processBtn = document.getElementById('processBtn');
-    let selectedFiles = [];
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.min.js';
 
-    fileInput.addEventListener('change', (e) => {
-        selectedFiles = Array.from(e.target.files);
-        if (selectedFiles.length > 0) {
-            fileList.innerHTML = `<strong>Selected:</strong> ${selectedFiles.length} file(s)<br>` + 
-                selectedFiles.map(f => f.name).join('<br>');
-            processBtn.disabled = false;
-        } else {
-            fileList.innerHTML = '';
-            processBtn.disabled = true;
+        function switchTool(tool) {
+            currentTool = tool;
+            selectedFiles = [];
+            renderFiles();
+            
+            const tabImg = document.getElementById('tab-img2pdf');
+            const tabMerge = document.getElementById('tab-merge');
+            const uploadHint = document.getElementById('upload-hint');
+            const fileInput = document.getElementById('file-input');
+            const processBtn = document.getElementById('process-btn');
+
+            if (tool === 'img2pdf') {
+                tabImg.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm";
+                tabMerge.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
+                uploadHint.innerText = "Upload JPG, PNG images to convert to PDF";
+                fileInput.accept = "image/*";
+                processBtn.innerHTML = '<i class="fa-solid fa-gear mr-2"></i> Convert to PDF';
+            } else {
+                tabMerge.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 bg-white text-blue-600 shadow-sm";
+                tabImg.className = "flex-1 py-3 px-4 rounded-xl font-semibold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:bg-white/50";
+                uploadHint.innerText = "Upload 2 or more PDF files to merge together";
+                fileInput.accept = ".pdf";
+                processBtn.innerHTML = '<i class="fa-solid fa-object-group mr-2"></i> Merge PDFs';
+            }
         }
-    });
 
-    async function processFiles() {
-        processBtn.disabled = true;
-        processBtn.innerText = "Processing...";
-        
-        try {
-            const { PDFDocument } = PDFLib;
-            const pdfDoc = await PDFDocument.create();
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
 
-            for (const file of selectedFiles) {
-                const arrayBuffer = await file.arrayBuffer();
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
 
-                if (file.type === 'application/pdf') {
-                    const srcDoc = await PDFDocument.load(arrayBuffer);
-                    const copiedPages = await pdfDoc.copyPages(srcDoc, srcDoc.getPageIndices());
-                    copiedPages.forEach((page) => pdfDoc.addPage(page));
-                } else if (file.type === 'image/jpeg' || file.type === 'image/png') {
-                    let image;
-                    if (file.type === 'image/jpeg') {
-                        image = await pdfDoc.embedJpg(arrayBuffer);
-                    } else {
-                        image = await pdfDoc.embedPng(arrayBuffer);
-                    }
-                    const page = pdfDoc.addPage([image.width, image.height]);
-                    page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
-                }
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                selectedFiles.push(files[i]);
+            }
+            renderFiles();
+        }
+
+        function renderFiles() {
+            const fileList = document.getElementById('file-list');
+            const processBtn = document.getElementById('process-btn');
+            fileList.innerHTML = '';
+
+            if (selectedFiles.length === 0) {
+                processBtn.classList.add('hidden');
+                return;
             }
 
-            const pdfBytes = await pdfDoc.save();
-            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-            const link = document.createElement('a');
-            link.href = URL.createObjectURL(blob);
-            link.download = `QuickPDF_${Date.now()}.pdf`;
-            link.click();
+            processBtn.classList.remove('hidden');
 
-        } catch (error) {
-            alert("Error processing files. Please try again.");
-            console.error(error);
-        } finally {
-            processBtn.disabled = false;
-            processBtn.innerText = "Process & Download File";
+            selectedFiles.forEach((file, index) => {
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between p-3 bg-slate-100 rounded-xl text-sm";
+                item.innerHTML = `
+                    <div class="flex items-center space-x-3 overflow-hidden">
+                        <i class="fa-solid fa-file text-blue-600 text-lg"></i>
+                        <span class="truncate font-medium text-slate-700">${file.name}</span>
+                        <span class="text-xs text-slate-400">(${ (file.size / 1024 / 1024).toFixed(2) } MB)</span>
+                    </div>
+                    <button onclick="removeFile(${index})" class="text-red-500 hover:text-red-700 p-1">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                fileList.appendChild(item);
+            });
         }
-    }
 
-    function openModal(type) {
-        const body = document.getElementById('modalBody');
-        if (type === 'privacy') {
-            body.innerHTML = "<h3>Privacy Policy</h3><p>QuickPDF Pro respects user privacy. All file processing is performed directly in your browser. No files are uploaded, stored, or saved on any remote server.</p>";
-        } else if (type === 'terms') {
-            body.innerHTML = "<h3>Terms of Service</h3><p>QuickPDF Pro is a free web utility provided as-is. Users are responsible for the content of the files they convert or merge.</p>";
-        } else if (type === 'contact') {
-            body.innerHTML = "<h3>Contact Us</h3><p>For support or inquiries regarding QuickPDF Pro, please contact the developer at: <strong>wwwalimurad08@gmail.com</strong></p>";
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            renderFiles();
         }
-        document.getElementById('infoModal').style.display = 'flex';
-    }
 
-    function closeModal() {
-        document.getElementById('infoModal').style.display = 'none';
-    }
-</script>
+        async function processFiles() {
+            if (selectedFiles.length === 0) return;
 
+            if (currentTool === 'img2pdf') {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    const file = selectedFiles[i];
+                    const imageData = await readFileAsDataURL(file);
+                    
+                    if (i > 0) doc.addPage();
+                    
+                    const imgProps = doc.getImageProperties(imageData);
+                    const pdfWidth = doc.internal.pageSize.getWidth();
+                    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+                    
+                    doc.addImage(imageData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+                }
+                doc.save('converted-quickpdf.pdf');
+
+            } else if (currentTool === 'merge') {
+                const mergedPdf = await PDFLib.PDFDocument.create();
+
+                for (const file of selectedFiles) {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await PDFLib.PDFDocument.load(arrayBuffer);
+                    const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                    copiedPages.forEach((page) => mergedPdf.addPage(page));
+                }
+
+                const pdfBytes = await mergedPdf.save();
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'merged-quickpdf.pdf';
+                link.click();
+            }
+        }
+
+        function readFileAsDataURL(file) {
+            return new Promise((resolve) => {
+                const reader = new FileReader();
+                reader.onload = (e) => resolve(e.target.result);
+                reader.readAsDataURL(file);
+            });
+        }
+    </script>
 </body>
 </html>
