@@ -5,95 +5,98 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>QuickPDF Pro - All-in-One PDF Utility Tools</title>
   
-  <!-- Google Search Console Verification Tag -->
+  <!-- Search Console & AdSense -->
   <meta name="google-site-verification" content="Your-Search-Console-Meta-Tag-Here" />
-
-  <!-- Google AdSense Code -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6291849846472319" crossorigin="anonymous"></script>
 
-  <!-- Tailwind CSS & PDF Libraries -->
+  <!-- Tailwind CSS & Libraries -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
   <script>
     tailwind.config = { darkMode: 'class' };
   </script>
 </head>
-<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen transition-colors duration-200">
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-100 min-h-screen flex flex-col justify-between transition-colors duration-200">
 
-  <!-- Navigation Bar -->
-  <nav class="bg-white dark:bg-gray-800 shadow-md py-4 px-6 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-indigo-600 dark:text-indigo-400">QuickPDF Pro</h1>
-    <button id="themeToggle" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg text-sm font-semibold">
-      🌙 Dark Mode
-    </button>
+  <!-- Header -->
+  <nav class="bg-white dark:bg-gray-800 shadow-sm py-3 px-6 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-indigo-600 dark:text-indigo-400">QuickPDF Pro</h1>
+    <button id="themeToggle" class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-xs font-semibold">🌙 Mode</button>
   </nav>
 
-  <!-- Main Container -->
-  <div class="max-w-4xl mx-auto p-6">
-    <header class="text-center my-6">
-      <h2 class="text-3xl font-extrabold mb-2">All-in-One Online PDF Tool</h2>
-      <p class="text-gray-600 dark:text-gray-400">Merge, Compress, Convert, Protect & Watermark PDFs instantly.</p>
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-4 py-4 w-full">
+    <header class="text-center mb-6">
+      <h2 class="text-2xl font-extrabold">Online PDF Tools</h2>
+      <p class="text-sm text-gray-500 dark:text-gray-400">Merge, Compress, Convert, Protect & Watermark PDFs easily.</p>
     </header>
 
-    <!-- Top Ad Placement -->
-    <div class="my-4 text-center">
+    <!-- AdSense Top -->
+    <div class="mb-6 text-center min-h-[50px]">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6291849846472319" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
 
-    <!-- Features Dashboard Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Tools Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       
-      <!-- 1. Merge PDFs -->
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <h3 class="text-xl font-bold mb-2 text-indigo-500">📎 Merge PDFs</h3>
-        <input type="file" id="mergeInput" multiple accept="application/pdf" class="block w-full text-sm text-gray-500 mb-4">
-        <button onclick="processMerge()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Merge Files</button>
+      <!-- Merge -->
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">📎 Merge PDFs</h3>
+        <input type="file" id="mergeInput" multiple accept="application/pdf" class="block w-full text-xs text-gray-500 mb-3">
+        <button onclick="processMerge()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold">Merge Files</button>
       </div>
 
-      <!-- 2. Images to PDF -->
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <h3 class="text-xl font-bold mb-2 text-indigo-500">🖼️ Image to PDF</h3>
-        <input type="file" id="imgInput" multiple accept="image/*" class="block w-full text-sm text-gray-500 mb-4">
-        <button onclick="processImgToPdf()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Convert to PDF</button>
+      <!-- Image to PDF -->
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">🖼️ Image to PDF</h3>
+        <input type="file" id="imgInput" multiple accept="image/*" class="block w-full text-xs text-gray-500 mb-3">
+        <button onclick="processImgToPdf()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold">Convert to PDF</button>
       </div>
 
-      <!-- 3. Add Watermark -->
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <h3 class="text-xl font-bold mb-2 text-indigo-500">✍️ Add Watermark</h3>
-        <input type="file" id="watermarkPdfInput" accept="application/pdf" class="block w-full text-sm text-gray-500 mb-2">
-        <input type="text" id="watermarkText" placeholder="Enter Watermark Text" class="w-full p-2 mb-4 rounded border dark:bg-gray-700">
-        <button onclick="processWatermark()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Apply Watermark</button>
+      <!-- Watermark -->
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">✍️ Add Watermark</h3>
+        <input type="file" id="watermarkPdfInput" accept="application/pdf" class="block w-full text-xs text-gray-500 mb-2">
+        <input type="text" id="watermarkText" placeholder="Watermark Text" class="w-full p-2 mb-3 text-xs rounded border dark:bg-gray-700">
+        <button onclick="processWatermark()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold">Apply Watermark</button>
       </div>
 
-      <!-- 4. Protect PDF (Password) -->
-      <div class="bg-white dark:bg-gray-800 p-6 rounded-xl shadow">
-        <h3 class="text-xl font-bold mb-2 text-indigo-500">🔒 Password Protect</h3>
-        <input type="file" id="protectPdfInput" accept="application/pdf" class="block w-full text-sm text-gray-500 mb-2">
-        <input type="password" id="pdfPassword" placeholder="Set Password" class="w-full p-2 mb-4 rounded border dark:bg-gray-700">
-        <button onclick="processProtect()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg font-bold">Encrypt PDF</button>
+      <!-- Protect -->
+      <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+        <h3 class="text-lg font-bold text-indigo-600 dark:text-indigo-400 mb-2">🔒 Password Protect</h3>
+        <input type="file" id="protectPdfInput" accept="application/pdf" class="block w-full text-xs text-gray-500 mb-2">
+        <input type="password" id="pdfPassword" placeholder="Set Password" class="w-full p-2 mb-3 text-xs rounded border dark:bg-gray-700">
+        <button onclick="processProtect()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded text-sm font-semibold">Encrypt PDF</button>
       </div>
 
     </div>
 
-    <!-- Bottom Ad Placement -->
-    <div class="my-8 text-center">
+    <!-- AdSense Bottom -->
+    <div class="mt-6 text-center min-h-[50px]">
       <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-6291849846472319" data-ad-slot="auto" data-ad-format="auto" data-full-width-responsive="true"></ins>
       <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
     </div>
-  </div>
+  </main>
+
+  <!-- Footer with Legal Links -->
+  <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 px-6 text-center text-xs text-gray-500 dark:text-gray-400 mt-8">
+    <div class="flex justify-center space-x-4 mb-2">
+      <a href="#" class="hover:underline">Privacy Policy</a>
+      <span>•</span>
+      <a href="#" class="hover:underline">Terms of Service</a>
+      <span>•</span>
+      <a href="#" class="hover:underline">Contact Us</a>
+    </div>
+    <p>© 2026 QuickPDF Pro. All rights reserved.</p>
+  </footer>
 
   <script>
-    // Theme Toggle Script
     const toggleBtn = document.getElementById('themeToggle');
     toggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
     });
 
-    // Helper: Download Blob
     function downloadBlob(blob, fileName) {
       const link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
@@ -101,7 +104,6 @@
       link.click();
     }
 
-    // Merge Logic
     async function processMerge() {
       const files = document.getElementById('mergeInput').files;
       if (!files.length) return alert('Select files first!');
@@ -113,10 +115,9 @@
         copiedPages.forEach((page) => mergedPdf.addPage(page));
       }
       const pdfBytes = await mergedPdf.save();
-      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'merged-quickpdf.pdf');
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'merged.pdf');
     }
 
-    // Image to PDF Logic
     async function processImgToPdf() {
       const files = document.getElementById('imgInput').files;
       if (!files.length) return alert('Select images first!');
@@ -128,10 +129,9 @@
         page.drawImage(image, { x: 0, y: 0, width: image.width, height: image.height });
       }
       const pdfBytes = await pdfDoc.save();
-      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'images-quickpdf.pdf');
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'converted.pdf');
     }
 
-    // Watermark Logic
     async function processWatermark() {
       const file = document.getElementById('watermarkPdfInput').files[0];
       const text = document.getElementById('watermarkText').value;
@@ -140,13 +140,12 @@
       const pdfDoc = await PDFLib.PDFDocument.load(bytes);
       const pages = pdfDoc.getPages();
       pages.forEach(page => {
-        page.drawText(text, { x: 50, y: page.getHeight() / 2, size: 40, opacity: 0.3 });
+        page.drawText(text, { x: 50, y: page.getHeight() / 2, size: 30, opacity: 0.3 });
       });
       const pdfBytes = await pdfDoc.save();
-      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'watermarked-quickpdf.pdf');
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'watermarked.pdf');
     }
 
-    // Protect Logic
     async function processProtect() {
       const file = document.getElementById('protectPdfInput').files[0];
       const password = document.getElementById('pdfPassword').value;
@@ -154,7 +153,7 @@
       const bytes = await file.arrayBuffer();
       const pdfDoc = await PDFLib.PDFDocument.load(bytes);
       const pdfBytes = await pdfDoc.save({ userPassword: password, ownerPassword: password });
-      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'protected-quickpdf.pdf');
+      downloadBlob(new Blob([pdfBytes], { type: 'application/pdf' }), 'protected.pdf');
     }
   </script>
 </body>
