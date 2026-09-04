@@ -38,7 +38,7 @@
     </div>
 
     <!-- Tools Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-4">
       
       <!-- Merge -->
       <div class="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
@@ -79,23 +79,59 @@
     </div>
   </main>
 
-  <!-- Footer with Legal Links & Developer Name -->
+  <!-- Footer with Legal Modal Triggers -->
   <footer class="bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 px-6 text-center text-xs text-gray-500 dark:text-gray-400 mt-4">
     <div class="flex justify-center space-x-4 mb-2">
-      <a href="#" class="hover:underline">Privacy Policy</a>
+      <button onclick="openModal('privacyModal')" class="hover:underline">Privacy Policy</button>
       <span>•</span>
-      <a href="#" class="hover:underline">Terms of Service</a>
+      <button onclick="openModal('termsModal')" class="hover:underline">Terms of Service</button>
       <span>•</span>
-      <a href="#" class="hover:underline">Contact Us</a>
+      <button onclick="openModal('contactModal')" class="hover:underline">Contact Us</button>
     </div>
     <p>© 2026 QuickPDF Pro. Created by Ali Murad Balchani. All rights reserved.</p>
   </footer>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full text-left shadow-xl">
+      <h3 class="text-lg font-bold mb-2">Privacy Policy</h3>
+      <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">At QuickPDF Pro, we respect your privacy. We do not store, view, or transfer any of your uploaded files. All PDF processing happens directly inside your browser. We use Google AdSense which uses cookies to serve relevant ads.</p>
+      <button onclick="closeModal('privacyModal')" class="bg-indigo-600 text-white px-4 py-1.5 rounded text-xs">Close</button>
+    </div>
+  </div>
+
+  <!-- Terms Modal -->
+  <div id="termsModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full text-left shadow-xl">
+      <h3 class="text-lg font-bold mb-2">Terms of Service</h3>
+      <p class="text-xs text-gray-600 dark:text-gray-300 mb-4">By using QuickPDF Pro, you agree to use the services responsibly. The tools are provided "as-is" without warranties. You retain full ownership and responsibility over the files you process.</p>
+      <button onclick="closeModal('termsModal')" class="bg-indigo-600 text-white px-4 py-1.5 rounded text-xs">Close</button>
+    </div>
+  </div>
+
+  <!-- Contact Modal -->
+  <div id="contactModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
+    <div class="bg-white dark:bg-gray-800 p-6 rounded-lg max-w-lg w-full text-left shadow-xl">
+      <h3 class="text-lg font-bold mb-2">Contact Us</h3>
+      <p class="text-xs text-gray-600 dark:text-gray-300 mb-2">For any queries, suggestions, or feedback regarding QuickPDF Pro, please contact:</p>
+      <p class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-4">Developer: Ali Murad Balchani</p>
+      <button onclick="closeModal('contactModal')" class="bg-indigo-600 text-white px-4 py-1.5 rounded text-xs">Close</button>
+    </div>
+  </div>
 
   <script>
     const toggleBtn = document.getElementById('themeToggle');
     toggleBtn.addEventListener('click', () => {
       document.documentElement.classList.toggle('dark');
     });
+
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+    }
 
     function downloadBlob(blob, fileName) {
       const link = document.createElement('a');
@@ -157,4 +193,4 @@
     }
   </script>
 </body>
-</html>
+</html
